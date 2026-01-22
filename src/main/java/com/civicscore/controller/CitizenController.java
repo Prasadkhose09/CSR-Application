@@ -1,0 +1,23 @@
+package com.civicscore.controller;
+
+import com.civicscore.entity.Citizen;
+import com.civicscore.service.CitizenService;
+import org.springframework.web.bind.annotation.*;
+
+
+@RestController
+@RequestMapping("/citizens")
+public class CitizenController {
+
+    private final CitizenService service;
+
+    public CitizenController(CitizenService service){
+        this.service = service;
+
+    }
+
+    @PostMapping
+    public Citizen create(@RequestParam String name){
+        return service.createCitizen(name);
+    }
+}
