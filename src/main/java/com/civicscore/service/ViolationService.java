@@ -24,6 +24,8 @@ public class ViolationService {
             java.util.UUID citizenId,
             Severity severity,
             String description){
+        System.out.println("Looking for citizenId = " + citizenId);
+
 
         Citizen citizen = citizenRepository.findById(citizenId)
                 .orElseThrow(() -> new RuntimeException("Citizen Not Found"));

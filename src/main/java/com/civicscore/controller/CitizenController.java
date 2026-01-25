@@ -1,6 +1,7 @@
 package com.civicscore.controller;
 
 import com.civicscore.entity.Citizen;
+import com.civicscore.repository.*;
 import com.civicscore.service.CitizenService;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,4 +21,9 @@ public class CitizenController {
     public Citizen create(@RequestParam String name){
         return service.createCitizen(name);
     }
+
+
+
+
+
 }
