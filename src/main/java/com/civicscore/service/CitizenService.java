@@ -4,6 +4,8 @@ import com.civicscore.entity.Citizen;
 import com.civicscore.repository.CitizenRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class CitizenService {
 
@@ -18,5 +20,12 @@ public class CitizenService {
         Citizen citizen = new Citizen();
         citizen.setFullName(name);
         return repository.save(citizen);
+    }
+
+    public int getCitizenScore(UUID citizenId){
+        Citizen citizen = repository.findById(citizenId)
+                .orElseThrow(() -> new RuntimeException("Citizen not found"));
+           return  citizen.getCurrentScore();
+
     }
 }
