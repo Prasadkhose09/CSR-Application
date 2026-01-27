@@ -5,6 +5,8 @@ import com.civicscore.repository.*;
 import com.civicscore.service.CitizenService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 
 @RestController
 @RequestMapping("/citizens")
@@ -20,6 +22,11 @@ public class CitizenController {
     @PostMapping
     public Citizen create(@RequestParam String name){
         return service.createCitizen(name);
+    }
+
+    @GetMapping("/{citizenId}/score")
+    public int getCitizenScore(@PathVariable UUID citizenId){
+        return service.getCitizenScore(citizenId);
     }
 
 
