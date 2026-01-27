@@ -11,6 +11,7 @@ import com.civicscore.repository.ScoreHistoryRepository;
 
 @Service
 public class ViolationService {
+
     private final ViolationRepository violationRepository;
     private final CitizenRepository citizenRepository;
     private final ScoreHistoryRepository scoreHistoryRepository;
