@@ -64,7 +64,7 @@ public class ViolationService {
         history.setScoreBefore(oldScore);
         history.setScoreAfter(newScore);
         history.setReason("Violation: " + description);
-        history.setChagedAt(java.time.LocalDateTime.now());
+        history.setChangedAt(java.time.LocalDateTime.now());
         scoreHistoryRepository.save(history);
 
         return savedViolation;
