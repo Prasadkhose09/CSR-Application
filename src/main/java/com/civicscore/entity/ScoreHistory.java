@@ -30,6 +30,6 @@ public class ScoreHistory {
     private int scoreAfter;
 
     private String reason;
-    private LocalDateTime chagedAt;
+    private LocalDateTime changedAt;
 
 }
