@@ -13,15 +13,17 @@ public class AppealService {
     private final ViolationRepository violationRepository;
     private final CitizenRepository citizenRepository;
     private final ScoreHistoryRepository scoreHistoryRepository;
+    private final IncentiveService incentiveService;
 
     public AppealService(AppealRepository appealRepository,
                          ViolationRepository violationRepository,
                          CitizenRepository citizenRepository,
-                         ScoreHistoryRepository scoreHistoryRepository) {
+                         ScoreHistoryRepository scoreHistoryRepository, IncentiveService incentiveService) {
         this.appealRepository = appealRepository;
         this.violationRepository = violationRepository;
         this.citizenRepository = citizenRepository;
         this.scoreHistoryRepository = scoreHistoryRepository;
+        this.incentiveService = incentiveService;
     }
 
     // Citizen raises appeal
@@ -75,6 +77,8 @@ public class AppealService {
 
         citizen.setCurrentScore(newScore);
         citizenRepository.save(citizen);
+        incentiveService.evaluateIncentives(citizen);
+
 
         // Audit trail
         ScoreHistory history = new ScoreHistory();
