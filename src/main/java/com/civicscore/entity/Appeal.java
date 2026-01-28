@@ -1,14 +1,13 @@
 package com.civicscore.entity;
 
 
-import com.civicscore.repository.ViolationRepository;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.security.PrivateKey;
 import java.time.LocalDateTime;
 
 @Entity

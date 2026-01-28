@@ -15,14 +15,16 @@ public class ViolationService {
     private final ViolationRepository violationRepository;
     private final CitizenRepository citizenRepository;
     private final ScoreHistoryRepository scoreHistoryRepository;
+    private final IncentiveService incentiveService;
 
 
     public ViolationService(ViolationRepository violationRepository,
-                            CitizenRepository citizenRepository, ScoreHistoryRepository scoreHistoryRepository){
+                            CitizenRepository citizenRepository, ScoreHistoryRepository scoreHistoryRepository, IncentiveService incentiveService){
         this.violationRepository = violationRepository;
         this.citizenRepository = citizenRepository;
 
         this.scoreHistoryRepository = scoreHistoryRepository;
+        this.incentiveService = incentiveService;
     }
 
     public Violation addViolation(
@@ -56,6 +58,8 @@ public class ViolationService {
         violation.setViolationTime(LocalDateTime.now());
 
         citizenRepository.save(citizen);
+        incentiveService.evaluateIncentives(citizen);
+
         Violation savedViolation = violationRepository.save(violation);
 
 
