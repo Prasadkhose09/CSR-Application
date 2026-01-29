@@ -1,6 +1,7 @@
 package com.civicscore.service;
 
 import com.civicscore.entity.Citizen;
+import com.civicscore.entity.Role;
 import com.civicscore.repository.CitizenRepository;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,8 @@ public class CitizenService {
     public Citizen createCitizen(String name){
         Citizen citizen = new Citizen();
         citizen.setFullName(name);
+        citizen.setCurrentScore(750);
+        citizen.setRole(Role.CITIZEN);
         return repository.save(citizen);
     }
 

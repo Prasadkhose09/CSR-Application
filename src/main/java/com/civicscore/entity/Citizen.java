@@ -22,4 +22,7 @@ public class Citizen {
 
     private int currentScore =750;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
 }
