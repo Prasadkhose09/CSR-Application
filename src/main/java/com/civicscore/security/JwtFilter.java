@@ -6,10 +6,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.List;
 
+@Component
 public class JwtFilter implements Filter {
 
     @Override
@@ -19,6 +21,15 @@ public class JwtFilter implements Filter {
             FilterChain chain) throws IOException, ServletException {
 
         HttpServletRequest httpRequest = (HttpServletRequest) request;
+
+        String path = httpRequest.getServletPath();
+        if (path.startsWith("/auth")) {
+            chain.doFilter(request, response);
+            return;
+        }
+        // 🔴 DO NOT apply JWT filter on auth endpoints
+
+
         String authHeader = httpRequest.getHeader("Authorization");
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
