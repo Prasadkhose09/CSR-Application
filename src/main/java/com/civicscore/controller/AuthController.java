@@ -1,22 +1,48 @@
 package com.civicscore.controller;
 
+import com.civicscore.dto.LoginRequest;
+import com.civicscore.dto.LoginResponse;
 import com.civicscore.security.JwtUtil;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
 
+    private final AuthenticationManager authenticationManager;
+
+    public AuthController(AuthenticationManager authenticationManager) {
+        this.authenticationManager = authenticationManager;
+    }
+
     @PostMapping("/login")
-    public Map<String, String> login(
-            @RequestParam String username,
-            @RequestParam String role) {
+    public LoginResponse login(@RequestBody LoginRequest request) {
 
-        // TEMP: simulate login (later DB-backed)
-        String token = JwtUtil.generateToken(username, role);
+        Authentication authentication =
+                authenticationManager.authenticate(
+                        new UsernamePasswordAuthenticationToken(
+                                request.getUsername(),
+                                request.getPassword()
+                        )
+                );
 
-        return Map.of("token", token);
+        String role = authentication.getAuthorities()
+                .iterator()
+                .next()
+                .getAuthority()
+                .replace("ROLE_", "");
+
+        String accessToken = JwtUtil.generateAccessToken(
+                request.getUsername(), role
+        );
+
+        String refreshToken = JwtUtil.generateRefreshToken(
+                request.getUsername()
+        );
+
+        return new LoginResponse(accessToken, refreshToken);
     }
 }
