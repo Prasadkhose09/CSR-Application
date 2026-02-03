@@ -35,11 +35,14 @@ public class AuthController {
                 .getAuthority()
                 .replace("ROLE_", "");
 
-        String token = JwtUtil.generateToken(
-                request.getUsername(),
-                role
+        String accessToken = JwtUtil.generateAccessToken(
+                request.getUsername(), role
         );
 
-        return new LoginResponse(token);
+        String refreshToken = JwtUtil.generateRefreshToken(
+                request.getUsername()
+        );
+
+        return new LoginResponse(accessToken, refreshToken);
     }
 }
