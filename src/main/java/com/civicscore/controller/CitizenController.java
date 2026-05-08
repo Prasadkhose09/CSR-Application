@@ -32,6 +32,10 @@ public class CitizenController {
     public int getCitizenScore(@PathVariable UUID citizenId) {
         return service.getCitizenScore(citizenId);
     }
+    @GetMapping("/{citizenId}")
+    public Citizen getCitizenById(@PathVariable UUID citizenId) {
+        return service.getCitizenById(citizenId);
+    }
 
     // ----------------------------
     // GET LOGGED-IN CITIZEN (CITIZEN DASHBOARD)

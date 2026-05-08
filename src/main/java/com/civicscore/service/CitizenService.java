@@ -20,6 +20,10 @@ public class CitizenService {
         citizen.setFullName(name);
         return repository.save(citizen);
     }
+    public Citizen getCitizenById(UUID citizenId) {
+        return repository.findById(citizenId)
+                .orElseThrow(() -> new RuntimeException("Citizen not found"));
+    }
 
     public int getCitizenScore(UUID citizenId) {
         return repository.findById(citizenId)
