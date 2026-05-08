@@ -5,6 +5,7 @@ import com.civicscore.repository.*;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class AppealService {
@@ -41,6 +42,11 @@ public class AppealService {
 
         return appealRepository.save(appeal);
     }
+
+    public List<Appeal> getAppealsByStatus(AppealStatus status) {
+        return appealRepository.findByStatus(status);
+    }
+
 
     // Authority resolves appeal
     public Appeal resolveAppeal(Long appealId, AppealStatus status) {

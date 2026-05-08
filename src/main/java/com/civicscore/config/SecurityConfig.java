@@ -29,18 +29,15 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
 
                 .authorizeHttpRequests(auth -> auth
-
-                        // PUBLIC
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/citizens/**").permitAll()
 
-                        // ADMIN ONLY
+                        // citizen endpoints
+                        .requestMatchers("/citizens/me").hasRole("CITIZEN")
+                        .requestMatchers("/citizens/**").hasRole("ADMIN")
+
+                        // admin endpoints
                         .requestMatchers("/violations/**").hasRole("ADMIN")
                         .requestMatchers("/appeals/**").hasRole("ADMIN")
-
-                        // CITIZEN & ADMIN
-                        .requestMatchers("/score-history/**").hasAnyRole("CITIZEN", "ADMIN")
-                        .requestMatchers("/incentives/**").hasAnyRole("CITIZEN", "ADMIN")
 
                         .anyRequest().authenticated()
                 )
