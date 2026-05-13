@@ -1,0 +1,10 @@
+package com.civicscore.repository;
+
+import com.civicscore.entity.UserAccount;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.Optional;
+
+public interface UserAccountRepository extends JpaRepository<UserAccount, Long> {
+    Optional<UserAccount> findByUserName(String username);
+}
